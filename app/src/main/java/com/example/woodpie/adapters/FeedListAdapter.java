@@ -2,7 +2,10 @@ package com.example.woodpie.adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.AsyncTask;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,9 +17,12 @@ import android.widget.TextView;
 import com.example.woodpie.R;
 import com.example.woodpie.data.FeedItem;
 import com.example.woodpie.utils.ActionType;
+import com.example.woodpie.utils.ImageDownloaderTask;
+import com.example.woodpie.utils.ImageUtils;
 
 import java.net.URI;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by asmita on 22/8/15.
@@ -69,12 +75,57 @@ public class FeedListAdapter extends BaseAdapter
 
         FeedItem feedItem = feedItems.get(position);
 
-        profilePic.setImageURI(Uri.parse(feedItem.getUser().getProfilePicURL()));
+        final Bitmap[] profilePicBmp = {null};
+        final String profilePicURL = feedItem.getUser().getProfilePicURL();
+        if (profilePicURL != null)
+        {
+            /*Thread thread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try
+                    {
+                        profilePicBmp[0] = ImageUtils.getBitmap(profilePicURL);
+                    }
+                    catch (Exception e)
+                    {
+                        e.printStackTrace();
+                        Log.e("BITMAP DOWNLOAD", "Error getting bitmap", e);
+                    }
+                }
+            });
+            thread.start();*/
+
+            new ImageDownloaderTask(profilePic).execute(profilePicURL);
+        }
+
+
+
         userName.setText(feedItem.getUser().getUserName());
         action.setText(feedItem.getAction().getActionText());
 
-        if (feedItem.getBook().getCoverPicURL() != null)
-            bookCover.setImageURI(Uri.parse(feedItem.getBook().getCoverPicURL()));
+        final Bitmap[] bookCoverBmp = {null};
+        final String coverPicURL = feedItem.getBook().getCoverPicURL();
+        if (coverPicURL != null)
+        {
+            /*Thread thread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try
+                    {
+                        bookCoverBmp[0] = ImageUtils.getBitmap(coverPicURL);
+                    }
+                    catch (Exception e)
+                    {
+                        e.printStackTrace();
+                        Log.e("BITMAP DOWNLOAD", "Error getting bitmap", e);
+                    }
+                }
+            });
+            thread.start();*/
+            new ImageDownloaderTask(bookCover).execute(coverPicURL);
+        }
+
+
 
         bookName.setText(feedItem.getBook().getBookName());
         bookAuthor.setText(feedItem.getBook().getAuthorName());
@@ -94,6 +145,11 @@ public class FeedListAdapter extends BaseAdapter
             bookRating.setVisibility(View.GONE);
             bookReview.setVisibility(View.GONE);
         }
+
+        if (profilePicBmp[0] != null)
+            profilePic.setImageBitmap(profilePicBmp[0]);
+        if (bookCoverBmp[0] != null)
+            bookCover.setImageBitmap(bookCoverBmp[0]);
 
         return convertView;
     }
