@@ -92,7 +92,7 @@ public class FeedListAdapter extends BaseAdapter
         final String coverPicURL = feedItem.getBook().getCoverPicURL();
         if (coverPicURL != null)
         {
-            new ImageDownloaderTask(bookCover).execute(coverPicURL);
+           new ImageDownloaderTask(bookCover).execute(coverPicURL);
         }
 
         bookName.setText(feedItem.getBook().getBookName());
