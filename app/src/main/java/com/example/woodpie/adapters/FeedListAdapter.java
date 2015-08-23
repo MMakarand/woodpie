@@ -2,7 +2,10 @@ package com.example.woodpie.adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.AsyncTask;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,9 +17,12 @@ import android.widget.TextView;
 import com.example.woodpie.R;
 import com.example.woodpie.data.FeedItem;
 import com.example.woodpie.utils.ActionType;
+import com.example.woodpie.utils.ImageDownloaderTask;
+import com.example.woodpie.utils.ImageUtils;
 
 import java.net.URI;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by asmita on 22/8/15.
@@ -64,36 +70,57 @@ public class FeedListAdapter extends BaseAdapter
         TextView bookAuthor = (TextView) convertView.findViewById(R.id.book_author);
         TextView bookReview = (TextView) convertView.findViewById(R.id.review);
         RatingBar bookRating = (RatingBar) convertView.findViewById(R.id.user_rating);
-        TextView likeLink = (TextView) convertView.findViewById(R.id.like);
-        TextView commentLink = (TextView) convertView.findViewById(R.id.comment);
+        TextView likeLink = (TextView) convertView.findViewById(R.id.like_link);
+        TextView commentLink = (TextView) convertView.findViewById(R.id.comment_link);
 
         FeedItem feedItem = feedItems.get(position);
 
-        profilePic.setImageURI(Uri.parse(feedItem.getUser().getProfilePicURL()));
+        final Bitmap[] profilePicBmp = {null};
+        final String profilePicURL = feedItem.getUser().getProfilePicURL();
+        if (profilePicURL != null)
+        {
+            new ImageDownloaderTask(profilePic).execute(profilePicURL);
+        }
+
+
+
         userName.setText(feedItem.getUser().getUserName());
         action.setText(feedItem.getAction().getActionText());
 
-        if (feedItem.getBook().getCoverPicURL() != null)
-            bookCover.setImageURI(Uri.parse(feedItem.getBook().getCoverPicURL()));
+        final Bitmap[] bookCoverBmp = {null};
+        final String coverPicURL = feedItem.getBook().getCoverPicURL();
+        if (coverPicURL != null)
+        {
+            new ImageDownloaderTask(bookCover).execute(coverPicURL);
+        }
 
         bookName.setText(feedItem.getBook().getBookName());
-        bookAuthor.setText(feedItem.getBook().getAuthorName());
+        bookAuthor.setText("By " + feedItem.getBook().getAuthorName());
 
         if (feedItem.getAction().equals(ActionType.REVIEW))
         {
             bookReview.setText(feedItem.getReview());
-            bookRating.setNumStars(feedItem.getRating());
+            bookRating.setProgress(feedItem.getRating());
+            bookRating.setVisibility(View.VISIBLE);
+            bookReview.setVisibility(View.VISIBLE);
         }
         else if (feedItem.getAction().equals(ActionType.RATE))
         {
             bookRating.setNumStars(feedItem.getRating());
-            bookReview.setVisibility(View.GONE);
+
+            bookRating.setVisibility(View.VISIBLE);
+            bookReview.setVisibility(View.VISIBLE);
         }
         else
         {
             bookRating.setVisibility(View.GONE);
             bookReview.setVisibility(View.GONE);
         }
+
+        if (profilePicBmp[0] != null)
+            profilePic.setImageBitmap(profilePicBmp[0]);
+        if (bookCoverBmp[0] != null)
+            bookCover.setImageBitmap(bookCoverBmp[0]);
 
         return convertView;
     }

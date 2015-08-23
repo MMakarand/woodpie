@@ -27,5 +27,7 @@
     <dimen name="feed_item_book_name">15dp</dimen>
     <dimen name="feed_item_book_author">13dp</dimen>
 
+    <dimen name="button_text_size">10dp</dimen>
+
 
 </resources>

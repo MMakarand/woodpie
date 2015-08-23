@@ -4,6 +4,8 @@ import com.example.woodpie.entities.Book;
 import com.example.woodpie.entities.User;
 import com.example.woodpie.utils.ActionType;
 
+import java.util.List;
+
 /**
  * Created by asmita on 22/8/15.
  */
@@ -15,6 +17,7 @@ public class FeedItem
     private Book book;
     private Integer rating;
     private String review;
+    private List<String> comments;
 
     public int getId() {
         return id;
@@ -62,5 +65,13 @@ public class FeedItem
 
     public void setReview(String review) {
         this.review = review;
+    }
+
+    public List<String> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<String> comments) {
+        this.comments = comments;
     }
 }

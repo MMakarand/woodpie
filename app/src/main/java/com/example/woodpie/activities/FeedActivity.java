@@ -11,6 +11,7 @@ import com.example.woodpie.adapters.FeedListAdapter;
 import com.example.woodpie.data.FeedItem;
 import com.example.woodpie.entities.Book;
 import com.example.woodpie.entities.User;
+import com.example.woodpie.listeners.InfiniteScrollListener;
 import com.example.woodpie.utils.ActionType;
 
 import java.util.ArrayList;
@@ -36,6 +37,13 @@ public class FeedActivity extends AppCompatActivity
 
         listAdapter = new FeedListAdapter(this, feedItems);
         listView.setAdapter(listAdapter);
+        listView.setOnScrollListener(new InfiniteScrollListener() {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount)
+            {
+                addMoreFeed();
+            }
+        });
 
         addFeed();
     }
@@ -58,6 +66,31 @@ public class FeedActivity extends AppCompatActivity
 
             feedItem1.setId(i);
             feedItem1.setAction(ActionType.ADD_TO_COLLECTION);
+
+            feedItems.add(feedItem1);
+        }
+        listAdapter.notifyDataSetChanged();
+    }
+
+    private void addMoreFeed()
+    {
+        for (int i = 0; i < 10; i++)
+        {
+            FeedItem feedItem1 = new FeedItem();
+            User user = new User();
+            user.setUserName("Makarand Muley");
+            user.setProfilePicURL("http://api.androidhive.info/feed/img/cosmos.jpg");
+            feedItem1.setUser(user);
+
+            Book book1 = new Book();
+            book1.setBookName("A Game of Thrones");
+            book1.setAuthorName("George R R Martin");
+            book1.setCoverPicURL("http://api.androidhive.info/feed/img/cosmos.jpg");
+            feedItem1.setBook(book1);
+
+            feedItem1.setId(i);
+            feedItem1.setAction(ActionType.RATE);
+            feedItem1.setRating(4);
 
             feedItems.add(feedItem1);
         }

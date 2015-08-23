@@ -46,7 +46,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/action"
-                    android:textSize="@dimen/feed_item_timestamp" />
+                    android:textSize="@dimen/feed_item_action" />
             </LinearLayout>
 
         </LinearLayout>
@@ -114,23 +114,46 @@
             android:paddingLeft="@dimen/feed_item_padding_left_right">
 
             <TextView
-                android:id="@+id/comment"
+                android:id="@+id/comment_link"
                 android:text="Comment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/author"
                 android:textSize="@dimen/feed_item_action"
                 android:paddingLeft="@dimen/feed_item_padding_left_right"
-                />
+                android:clickable="true"
+                android:onClick="onClickComment" />
         
             <TextView
-                android:id="@+id/like"
+                android:id="@+id/like_link"
                 android:text="Like"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/author"
                 android:textSize="@dimen/feed_item_action"
-                android:layout_alignParentLeft="true" />
+                android:layout_alignParentLeft="true"
+                android:layout_gravity="left"
+                android:clickable="true" />
+            
+        </RelativeLayout>
+        
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/comment_profile_pic"
+                android:layout_width="@dimen/feed_item_profile_pic"
+                android:layout_height="@dimen/feed_item_profile_pic"
+                android:scaleType="fitCenter" />
+            
+            <EditText
+                android:id="@+id/comment"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+            />
+
 
         </RelativeLayout>
 

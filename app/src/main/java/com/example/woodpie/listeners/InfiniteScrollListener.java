@@ -14,6 +14,11 @@ public abstract class InfiniteScrollListener implements OnScrollListener
     private boolean loading = true;
     private int startingPageIndex = 0;
 
+    public InfiniteScrollListener()
+    {
+
+    }
+
     public InfiniteScrollListener(int visibleThreshold)
     {
         this.visibleThreshold = visibleThreshold;
