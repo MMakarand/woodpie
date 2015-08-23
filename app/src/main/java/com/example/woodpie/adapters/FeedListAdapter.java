@@ -39,6 +39,7 @@ public class FeedListAdapter extends BaseAdapter
         this.feedItems = feedItems;
     }
 
+    
     @Override
     public int getCount() {
         return feedItems.size();
@@ -106,8 +107,9 @@ public class FeedListAdapter extends BaseAdapter
         }
         else if (feedItem.getAction().equals(ActionType.RATE))
         {
-            bookRating.setNumStars(feedItem.getRating());
-
+            bookRating.setRating(feedItem.getRating());
+           // int rating =  feedItem.getRating();
+            //this.setStars(rating);
             bookRating.setVisibility(View.VISIBLE);
             bookReview.setVisibility(View.VISIBLE);
         }
