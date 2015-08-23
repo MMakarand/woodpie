@@ -52,22 +52,22 @@ public class FeedActivity extends AppCompatActivity
     {
         for (int i = 0; i < 10; i++)
         {
-            FeedItem feedItem1 = new FeedItem();
+            FeedItem feedItem = new FeedItem();
             User user = new User();
             user.setUserName("Asmita Metrewar");
-            user.setProfilePicURL("http://api.androidhive.info/feed/img/cosmos.jpg");
-            feedItem1.setUser(user);
+            user.setProfilePicURL("http://qph.is.quoracdn.net/main-thumb-9289996-200-jbqkkqweisqhwcvyzhghtqtmvaneprwd.jpeg");
+            feedItem.setUser(user);
 
-            Book book1 = new Book();
-            book1.setBookName("To Kill A Mockingbird");
-            book1.setAuthorName("Harper Lee");
-            book1.setCoverPicURL("http://api.androidhive.info/feed/img/cosmos.jpg");
-            feedItem1.setBook(book1);
+            Book book = new Book();
+            book.setBookName("To Kill A Mockingbird");
+            book.setAuthorName("Harper Lee");
+            book.setCoverPicURL("http://ecx.images-amazon.com/images/I/51J6fU-Lw%2BL.jpg");
+            feedItem.setBook(book);
 
-            feedItem1.setId(i);
-            feedItem1.setAction(ActionType.ADD_TO_COLLECTION);
+            feedItem.setId(i);
+            feedItem.setAction(ActionType.ADD_TO_COLLECTION);
 
-            feedItems.add(feedItem1);
+            feedItems.add(feedItem);
         }
         listAdapter.notifyDataSetChanged();
     }
@@ -76,23 +76,23 @@ public class FeedActivity extends AppCompatActivity
     {
         for (int i = 0; i < 10; i++)
         {
-            FeedItem feedItem1 = new FeedItem();
+            FeedItem feedItem = new FeedItem();
             User user = new User();
             user.setUserName("Makarand Muley");
-            user.setProfilePicURL("http://api.androidhive.info/feed/img/cosmos.jpg");
-            feedItem1.setUser(user);
+            user.setProfilePicURL("https://goo.gl/OEbewK");
+            feedItem.setUser(user);
 
-            Book book1 = new Book();
-            book1.setBookName("A Game of Thrones");
-            book1.setAuthorName("George R R Martin");
-            book1.setCoverPicURL("http://api.androidhive.info/feed/img/cosmos.jpg");
-            feedItem1.setBook(book1);
+            Book book = new Book();
+            book.setBookName("A Game of Thrones");
+            book.setAuthorName("George R R Martin");
+            book.setCoverPicURL("http://www.georgerrmartin.com/wp-content/uploads/2013/03/GOTMTI2.jpg");
+            feedItem.setBook(book);
 
-            feedItem1.setId(i);
-            feedItem1.setAction(ActionType.RATE);
-            feedItem1.setRating(4);
+            feedItem.setId(feedItems.size());
+            feedItem.setAction(ActionType.RATE);
+            feedItem.setRating(4);
 
-            feedItems.add(feedItem1);
+            feedItems.add(feedItem);
         }
         listAdapter.notifyDataSetChanged();
     }

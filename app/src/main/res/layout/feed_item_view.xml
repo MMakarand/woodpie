@@ -60,7 +60,7 @@
                 android:id="@+id/book_cover"
                 android:layout_width="@dimen/feed_item_book_cover_width"
                 android:layout_height="@dimen/feed_item_book_cover_height"
-                android:scaleType="center"/>
+                android:scaleType="fitCenter"/>
 
             <LinearLayout
                 android:layout_width="fill_parent"
@@ -109,9 +109,10 @@
 
         <RelativeLayout
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
             android:orientation="horizontal"
-            android:paddingLeft="@dimen/feed_item_padding_left_right">
+            android:paddingLeft="@dimen/feed_item_padding_left_right"
+            android:paddingTop="@dimen/feed_item_padding_left_right">
 
             <TextView
                 android:id="@+id/comment_link"
@@ -119,11 +120,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/author"
-                android:textSize="@dimen/feed_item_action"
-                android:paddingLeft="@dimen/feed_item_padding_left_right"
                 android:clickable="true"
-                android:onClick="onClickComment" />
-        
+                android:layout_alignTop="@+id/like_link"
+                android:layout_toRightOf="@+id/view"
+                android:layout_alignParentRight="true"
+                />
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_centerHorizontal="true"/>
+
             <TextView
                 android:id="@+id/like_link"
                 android:text="Like"
@@ -132,9 +140,9 @@
                 android:textColor="@color/author"
                 android:textSize="@dimen/feed_item_action"
                 android:layout_alignParentLeft="true"
-                android:layout_gravity="left"
+                android:layout_toLeftOf="@+id/view"
                 android:clickable="true" />
-            
+
         </RelativeLayout>
         
         <RelativeLayout
@@ -145,7 +153,8 @@
                 android:id="@+id/comment_profile_pic"
                 android:layout_width="@dimen/feed_item_profile_pic"
                 android:layout_height="@dimen/feed_item_profile_pic"
-                android:scaleType="fitCenter" />
+                android:scaleType="fitCenter"
+                android:visibility="gone"/>
             
             <EditText
                 android:id="@+id/comment"

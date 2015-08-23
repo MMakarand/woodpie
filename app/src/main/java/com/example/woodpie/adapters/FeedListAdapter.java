@@ -3,9 +3,6 @@ package com.example.woodpie.adapters;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.net.Uri;
-import android.os.AsyncTask;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,11 +15,8 @@ import com.example.woodpie.R;
 import com.example.woodpie.data.FeedItem;
 import com.example.woodpie.utils.ActionType;
 import com.example.woodpie.utils.ImageDownloaderTask;
-import com.example.woodpie.utils.ImageUtils;
 
-import java.net.URI;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 /**
  * Created by asmita on 22/8/15.
@@ -83,8 +77,6 @@ public class FeedListAdapter extends BaseAdapter
             new ImageDownloaderTask(profilePic).execute(profilePicURL);
         }
 
-
-
         userName.setText(feedItem.getUser().getUserName());
         action.setText(feedItem.getAction().getActionText());
 
@@ -107,9 +99,14 @@ public class FeedListAdapter extends BaseAdapter
         }
         else if (feedItem.getAction().equals(ActionType.RATE))
         {
+            /*
+            int rating =  feedItem.getRating();
+            this.setStars(rating);
+            Drawable progress = bookRating.getProgressDrawable();
+            DrawableCompat.setTint(progress, Color.parseColor("#800000"));
+            */
+
             bookRating.setRating(feedItem.getRating());
-           // int rating =  feedItem.getRating();
-            //this.setStars(rating);
             bookRating.setVisibility(View.VISIBLE);
             bookReview.setVisibility(View.VISIBLE);
         }
